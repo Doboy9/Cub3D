@@ -6,7 +6,7 @@
 /*   By: dboire <dboire@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:54:10 by dboire            #+#    #+#             */
-/*   Updated: 2024/05/17 18:47:26 by dboire           ###   ########.fr       */
+/*   Updated: 2024/05/20 14:24:07 by dboire           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	check_walls_path(t_vars *vars)
 {
-	float	i;
+	double	i;
 	int		x_map;
 	int		y_map;
-	float	y;
+	double	y;
 	
 	x_map = 0;
 	y_map = 0;
@@ -37,9 +37,11 @@ int	check_walls_path(t_vars *vars)
 	y = (y - vars->ray_y0) / EDGE; // y = position precis du pixel y
 	//vars->map[y_map - 1][x_map - 1]
 	if(x_map > 0)
-		x_map--;
+		x_map -= 1;
 	if(y_map > 0)
-		y_map--;
+		y_map -= 1;
+	// printf("path :y_map:%d\n", y_map);
+	// printf("path :x_map:%d\n", x_map);
 	if(vars->map[y_map][x_map] == '1')
 		return (1);
 	return (0);
@@ -55,26 +57,26 @@ int	check_walls_ray(t_vars *vars)
 	x_map = 0;
 	y_map = 0;
 	i = (WIDTH / 3);
-	while(i < vars->ray_x1)
+	while(i <= vars->ray_x1)
 	{
 		i += EDGE;
 		x_map++;
 	}
 	i = (i - vars->ray_x1) / EDGE; // i = position precis du pixel i
 	y = (HEIGHT / 3);
-	while(y < vars->ray_y1)
+	while(y <= vars->ray_y1)
 	{
 		y += EDGE;
 		y_map++;
 	}
 	y = (y - vars->ray_y1) / EDGE; // y = position precis du pixel y
 	//vars->map[y_map - 1][x_map - 1]
-	if(x_map > 0)
+	if(x_map > 1)
 		x_map -= 1;
-	if(y_map > 0)
+	if(y_map > 1)
 		y_map -=1;
-	printf("y_map:%d\n", y_map);
-	printf("x_map:%d\n", x_map);
+	// printf("ray : y_map:%d\n", y_map);
+	// printf("ray : x_map:%d\n", x_map);
 	if(vars->map[y_map][x_map] == '1')
 		return (1);
 	return (0);
@@ -213,6 +215,9 @@ int	move(int keycode, t_vars *vars)
 		exit(0);
 	vars->y = HEIGHT / 3;
 	vars->y0 = vars->y;
+	vars->x = WIDTH / 3;
+	vars->x0 = vars->x;
+	mlx_destroy_image(vars->mlx, vars->img);
 	vars->img = mlx_new_image(vars->mlx, 1920, 1080);
 	vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel,
 		&vars->line_length, &vars->endian);
@@ -228,6 +233,7 @@ int	exec(t_vars *vars)
 
 	i = 0;
 	y = 0;
+	vars->angle = 360;
 	vars->y = HEIGHT / 3;
 	vars->y0 = vars->y;
 	mlx_clear_window(vars->mlx, vars->win);

@@ -19,9 +19,9 @@
 # include <stdint.h>
 # include <math.h>
 
-# define WIDTH 1500
-# define HEIGHT 590
-# define EDGE 50
+# define WIDTH 1920
+# define HEIGHT 1080
+# define EDGE 64
 # define PI 3.14159265
 
 # define RESET   "\x1B[0m"
@@ -81,24 +81,24 @@ typedef struct s_vars {
 	void			*img;
 	void			*addr;
 ///////////////////////////
-	float		rotate_x1;
-	float		rotate_y1;
-	float			x0;
-	float			x1;
-	float			y0;
-	float			y1;
+	double		rotate_x1;
+	double		rotate_y1;
+	double			x0;
+	double			x1;
+	double			y0;
+	double			y1;
 	float			ray_x0;
 	float			ray_y0;
 	float			ray_x1;
 	float			ray_y1;
 	int			x;
 	int			y;
-	float		angle;
-	int			dx;
-	int			dy;
-	int			incx;
-	int			incy;
-	int			rotate;
+	int		angle;
+	double			dx;
+	double			dy;
+	double			incx;
+	double			incy;
+	double			rotate;
 	int			length_x;
 	int			length_y;
 	int			zoom;
@@ -125,8 +125,8 @@ typedef struct s_point
 
 
 
-int		ft_draw_line_x(t_vars *vars);
-int		ft_draw_line_y(t_vars *vars);
+void	ft_draw_line_x(t_vars *vars);
+void	ft_draw_line_y(t_vars *vars);
 void	ft_draw_horizontal(t_vars *vars);
 void	ft_draw_vertical(t_vars *vars);
 int		ft_draw_line_bresenham(t_vars *vars);

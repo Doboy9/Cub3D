@@ -6,7 +6,7 @@
 /*   By: dboire <dboire@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:41:55 by dboire            #+#    #+#             */
-/*   Updated: 2024/05/16 14:00:08 by dboire           ###   ########.fr       */
+/*   Updated: 2024/05/20 13:27:28 by dboire           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ void	draw_player(t_vars *vars)
 	my_mlx_pixel_put(vars, vars->play_x + 1, vars->play_y, 0x00FF0000);
 	my_mlx_pixel_put(vars, vars->play_x, vars->play_y + 1, 0x00FF0000);
 	my_mlx_pixel_put(vars, vars->play_x + 1, vars->play_y + 1, 0x00FF0000);
+	if(vars->angle >= 45 && vars->angle < 135)
+		draw_rays_south(vars);
+	if(vars->angle >= 135 && vars->angle < 225)
+		draw_rays_west(vars);
+	if(vars->angle >= 315 || vars->angle < 45)
+		draw_rays_east(vars);
+	else
+		draw_rays_north(vars);
 }
 
 void	draw_floor_tile(t_vars *vars)
