@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_and_exit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprigent <kprigent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dboire <dboire@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 13:29:24 by kprigent          #+#    #+#             */
-/*   Updated: 2024/05/15 12:53:21 by kprigent         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:25:19 by dboire           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	destroy_image(t_vars *vars)
 		mlx_destroy_image(vars->mlx, vars->play_selec);
 		mlx_destroy_image(vars->mlx, vars->title);
 	}
-	mlx_destroy_image(vars->mlx, vars->you_win);
+	//mlx_destroy_image(vars->mlx, vars->you_win);
+	
 }
 
 void	free_vars(t_vars *vars)
@@ -28,17 +29,26 @@ void	free_vars(t_vars *vars)
 	int	i;
 
 	i = 0;
-	mlx_do_key_autorepeaton(vars->mlx);
 	if (vars->map)
 	{
-		while (i < vars->l)
+		while (vars->map[i])
 			free(vars->map[i++]);
 		free(vars->map);
 	}
+	if (vars->texture)
+	{
+		i = 0;
+		while (i < 7)
+			free(vars->texture[i++]);
+		free(vars->texture);
+	}
 	destroy_image(vars);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	free(vars->mlx);
+	if (vars->mlx && vars->win)
+	{
+		mlx_destroy_window(vars->mlx, vars->win);
+		mlx_destroy_display(vars->mlx);
+		free(vars->mlx);
+	}
 	free(vars);
 	exit(0);
 }

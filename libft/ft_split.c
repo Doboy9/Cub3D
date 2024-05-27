@@ -6,7 +6,7 @@
 /*   By: kprigent <kprigent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:32:42 by kprigent          #+#    #+#             */
-/*   Updated: 2023/12/21 17:04:57 by kprigent         ###   ########.fr       */
+/*   Updated: 2024/05/25 13:27:17 by kprigent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_is_charset(const char *s, char c, int i)
 {
-	if (s[i] == c || (i == 0 && s[i] != c))
+	if (s[i] == c)
 		return (1);
 	else
 		return (0);
@@ -105,7 +105,7 @@ char	**ft_split(const char *s, char c)
 	b = 0;
 	while (s[i] != '\0')
 	{
-		if (ft_is_charset(s, c, i) == 1)
+		if (ft_is_charset(s, c, i) == 1 || i == 0)
 		{
 			end = ft_find_next_charset(s, c, i);
 			if (end - i > 1 || (i == 0 && ft_is_charset(s, c, i) == 0))

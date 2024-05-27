@@ -21,8 +21,14 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define EDGE 64
+# define EDGE 40
+# define FOV 60
 # define PI 3.14159265
+
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 # define RESET   "\x1B[0m"
 # define RED     "\x1B[31m"
@@ -38,62 +44,89 @@
 # define Y   "\x1B[33m"
 # define RESET "\x1B[0m"
 
+
 typedef struct s_vars {
-	void	*mlx;
-	void	*win;
+    void    *mlx;
+    void    *win;
 
-////////////IMG MENUE HANDLE////////////////	
+////////////IMG MENUE HANDLE////////////////    
 
-	void	*play_click;
-	void	*play_selec;
-	int		play_x;
-	int		play_y;
-	int		solong_x;
-	int		solong_y;
-	int		title_x;
-	int		title_y;
+    void    *play_click;
+    void    *play_selec;
+	int		play_button_x;
+	int		play_button_y;
+    int        solong_x;
+    int        solong_y;
+    int        title_x;
+    int        title_y;
+
+///////////PARISNG HANDLE////////////////////
+
+    char **texture;
+	int **texture_N;
+	int **texture_S;
+	int **texture_E;
+	int **texture_W;
+	double	pos_x;
+	double	pos_y;
+    int        line_map;
+    int        no;
+    int        so;
+    int        we;
+    int        ea;
+    int        f;
+    int        c;
+
+////////////////////
+    void    *title;
+    void    *you_win;
+    char    **map;
+	int		celing_color;
+	int		floor_color;
+    char    *line;
+    int        width;
+    int        height;
+    int        victory;
+    int        one;
+    int        p;
+    int        e;
+    int        wrong;
+    int        start;
+    int        button_clicked;
+    int        nb_of_collectible;
+    int        l;
+    int        ll;
+    int        p_y;
+    int        p_x;
+    int        map_x;
+    int        map_y;
 ///////////////////////////
-	void	*title;
-	void	*you_win;
-	char	**map;
-	char	*line;
-	int		width;
-	int		height;
-	int		victory;
-	int		one;
-	int		p;
-	int		c;
-	int		e;
-	int		wrong;
-	int		start;
-	int		button_clicked;
-	int		nb_of_collectible;
-	int		l;
-	int		ll;
-	int		p_y;
-	int		p_x;
-	int		map_x;
-	int		map_y;
-///////////////////////////
+    float        play_x;
+    float        play_y;
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
 	void			*img;
 	void			*addr;
-///////////////////////////
+	int				x_map;
+	int				y_map;
 	double		rotate_x1;
 	double		rotate_y1;
 	double			x0;
 	double			x1;
 	double			y0;
 	double			y1;
+	double			c2;
 	float			ray_x0;
 	float			ray_y0;
+	float			ray_y;
+	float			ray_x;
 	float			ray_x1;
 	float			ray_y1;
-	int			x;
-	int			y;
-	int		angle;
+	int				x;
+	int				y;
+	double			angle;
+	double			vision_angle;
 	double			dx;
 	double			dy;
 	double			incx;
@@ -130,10 +163,11 @@ void	ft_draw_line_y(t_vars *vars);
 void	ft_draw_horizontal(t_vars *vars);
 void	ft_draw_vertical(t_vars *vars);
 int		ft_draw_line_bresenham(t_vars *vars);
-void	draw_rays_north(t_vars *vars);
-void	draw_rays_south(t_vars *vars);
-void	draw_rays_west(t_vars *vars);
-void	draw_rays_east(t_vars *vars);
+void	draw_rays(t_vars *vars);
+void	redraw_grid_wo_p(t_vars *vars);
+void	rotation_matrix(t_vars *vars);
+double	ft_absolute_number(double value);
+double	ft_sign(double value);
 
 
 ////// EXEC //////////////////
@@ -153,25 +187,30 @@ int		check_walls_path(t_vars *vars);
 
 ////// MENU AND PARSING //////
 
-int		count_c(t_vars *vars);
-void	free_map(t_vars *vars);
-int		is_square(t_vars *vars);
-void	go_in_game(t_vars *vars);
-void	event_game(t_vars *vars);
-int		mouse_click(int button, int x, int y, t_vars *vars);
-int		mouse_over(int x, int y, t_vars *vars);
-int		check_error(char *map, t_vars *vars);
-void	find_p(t_vars *vars);
-void	find_a_way(t_vars *vars, int x, int y);
-int		nb_line(int fd);
-int		check_epc(t_vars *vars);
-void	free_vars(t_vars *vars);
-void	free_modified_map(t_vars *vars);
-void	destroy_image(t_vars *vars);
-int		close_with_x(t_vars *vars);
-int		close_with_esc(int keycode, t_vars *vars);
-int		parsing(t_vars *vars, char **argv, int argc);
-int	check_caracters(char *map, t_vars *vars);
+int        count_c(t_vars *vars);
+void    free_map(t_vars *vars);
+int        is_square(t_vars *vars);
+void    go_in_game(t_vars *vars);
+void    event_game(t_vars *vars);
+int        mouse_click(int button, int x, int y, t_vars *vars);
+int        mouse_over(int x, int y, t_vars *vars);
+int        check_error(char *map, t_vars *vars);
+void    find_p(t_vars *vars);
+void    find_a_way(t_vars *vars, int x, int y);
+int        nb_line(int fd);
+int        check_nsew(t_vars *vars);
+void    free_vars(t_vars *vars);
+void    free_modified_map(t_vars *vars);
+void    destroy_image(t_vars *vars);
+int        close_with_x(t_vars *vars);
+int        close_with_esc(int keycode, t_vars *vars);
+int        parsing(t_vars *vars, char **argv, int argc);
+int        check_map(char *map, t_vars *vars);
+int        check_param(char *map, t_vars *vars);
+int   	  check_param_valid(t_vars *vars);
+char     *remove_space(char *tab);
+void     free_exit(t_vars *vars);
+int check_param(char *map, t_vars *vars);
 
 ////// GAME /////
 

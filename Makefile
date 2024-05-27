@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dboire <dboire@student.42.fr>              +#+  +:+       +#+         #
+#    By: kprigent <kprigent@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/05/16 16:16:46 by dboire           ###   ########.fr        #
+#    Updated: 2024/05/24 18:46:46 by kprigent         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ MAIN_SRCS = src_parsing/main.c \
 			src_parsing/free_and_exit.c \
 			src_parsing/free_map_is_square.c \
 			src_parsing/parsing.c \
-			libft/ft_printf.c \
+			src_parsing/parsing_param.c \
+			src_parsing/parsing_valid.c \
 			libft/ft_strdup.c \
 			libft/ft_putcharp.c \
 			libft/ft_putnbr_base.c \
@@ -29,9 +30,12 @@ MAIN_SRCS = src_parsing/main.c \
 			libft/ft_putstrp.c \
 			libft/ft_putaddr.c \
 			libft/ft_itoa.c \
+			libft/ft_atoi.c \
+			libft/ft_split.c \
 			libft/ft_strlen.c \
 			libft/get_next_line.c \
 			libft/get_next_line_utils.c\
+			libft/ft_strncmp.c \
 			exec/exec.c\
 			exec/draw.c\
 			exec/redraw.c\

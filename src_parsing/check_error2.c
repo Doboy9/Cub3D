@@ -71,7 +71,7 @@ void	find_a_way(t_vars *vars, int x, int y)
 	if (vars->map[y][x] != 'C' && vars->map[y][x] != 'P'
 		&& vars->map[y][x] != 'E' && vars->map[y][x] != '0')
 	{
-		ft_printf("Error\n Wrong caracter found\n");
+		printf("Error\n Wrong caracter found\n");
 		vars->wrong += 1;
 	}
 	vars->map[y][x] = 'V';
