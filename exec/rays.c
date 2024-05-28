@@ -137,27 +137,29 @@ void	draw_rays(t_vars *vars)
 	float x = 0;
 	float column_end;
 	float column_start;
+	// double angle;
 
 	// y = 1919;
 	angle_step = 0.3125;
 	printf("angle_step: %f \n", angle_step);
 	printf("angle_total: %f \n", angle_step * rays_number);
-	// vars->angle = (FOV * PI / 180);
+	vars->angle -= 30;
 	if (vars->angle < 0)
 		vars->angle += 360.0;
 	if (vars->angle >= 360)
 		vars->angle -= 360.0;
 	printf("angle: %f \n", vars->angle);
+	// angle = vars->angle;
 	column_start = x * (WIDTH / rays_number);
 	while(x < rays_number)
 	{
-		double ray_angle = vars->angle;
+		double ray_angle = vars->angle + (x * angle_step);
 		vars->ray_x0 = vars->play_x;
 		vars->ray_y0 = vars->play_y;
 		vars->ray_y = vars->ray_y0;
 		vars->ray_x = vars->ray_x0;
 		vars->ray_x1 = cos((vars->angle * PI) / 180) + vars->ray_x0;
-		vars->ray_y1 = sin((vars->angle * PI) / 180) + vars->ray_y0;
+		vars->ray_y1 = sin((vars->angle * PI) / 180) + vars->ray_x0;
 		rotation_matrix(vars);
 		vars->ray_x1 = vars->ray_x0 + vars->rotate_x1;
 		vars->ray_y1 = vars->ray_y0 + vars->rotate_y1;
@@ -165,8 +167,6 @@ void	draw_rays(t_vars *vars)
 		distance = sqrt(pow(vars->ray_x - vars->play_x, 2) + pow(vars->ray_y - vars->play_y, 2));
 		int h = calculate_wall_height(vars, distance, ray_angle);
         column_end = (x + 1) * (WIDTH / rays_number);
-		printf("column start: %f \n", column_start);
-		printf("column end: %f \n", column_end);
         while(column_start < column_end)
         {
 			draw_wall(vars, column_start, h);
@@ -179,6 +179,11 @@ void	draw_rays(t_vars *vars)
 		if (vars->angle >= 360)
 			vars->angle -= 360.0;
 	}
+	vars->angle -= 30;
+	if (vars->angle < 0)
+		vars->angle += 360.0;
+	if (vars->angle >= 360)
+		vars->angle -= 360.0;
 	printf("inc x: %f \n", x);
 	printf("angle: %f \n", vars->angle);
 }
