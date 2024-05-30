@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kprigent <kprigent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dboire <dboire@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 13:47:54 by dboire            #+#    #+#             */
-/*   Updated: 2024/05/24 18:38:14 by kprigent         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:27:30 by dboire           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	ft_draw_line_bresenham(t_vars *vars)
 	vars->incx = ft_sign(vars->ray_x1 - vars->ray_x0);
 	vars->dy = ft_absolute_number(vars->ray_y1 - vars->ray_y0);
 	vars->incy = ft_sign(vars->ray_y1 - vars->ray_y0);
-	vars->incx /= 5;
-	vars->incy /= 5;
+	// vars->incx /= 5;
+	// vars->incy /= 5;
 	vars->ray_y = vars->ray_y0;
 	vars->ray_x = vars->ray_x0;
 	// printf("incx:%f\n", vars->incx);

@@ -14,9 +14,6 @@
 
 void	draw_player(t_vars *vars)
 {
-	// int i;
-	
-	// i = 0;
 	vars->play_x = vars->x - EDGE / 2;
 	vars->play_y = vars->y + EDGE / 2;
 	// my_mlx_pixel_put(vars, vars->play_x, vars->play_y, 0x00FF0000);
@@ -28,9 +25,6 @@ void	draw_player(t_vars *vars)
 
 void	draw_floor_tile(t_vars *vars)
 {
-	// int	i;
-
-	// i = 0;
 	vars->x0 = vars->x;
 	vars->x1 = vars->x + EDGE;
 	vars->y0 = vars->y;
@@ -49,9 +43,6 @@ void	draw_floor_tile(t_vars *vars)
 
 void	draw_wall_tile(t_vars *vars)
 {
-	// int	i;
-
-	// i = 0;
 	vars->x0 = vars->x;
 	vars->x1 = vars->x + EDGE;
 	vars->y = vars->y0;
